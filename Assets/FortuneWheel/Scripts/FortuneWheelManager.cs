@@ -263,7 +263,9 @@ public class FortuneWheelManager : MonoBehaviour
 	{
 		_currentCoinsAmount += awardCoins;
 		// Show animated delta coins
-		DeltaCoinsText.text = String.Format("+{0}", awardCoins);
+		if (awardCoins > 0) DeltaCoinsText.text = String.Format("+{0}", awardCoins);
+		else DeltaCoinsText.text = String.Format("-{0}", awardCoins);
+
 		DeltaCoinsText.gameObject.SetActive (true);
 		StartCoroutine (UpdateCoinsAmount ());
 	}
