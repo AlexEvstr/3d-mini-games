@@ -125,7 +125,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 451968}
-  - component: {fileID: 11139068}
   m_Layer: 0
   m_Name: Lock_gold
   m_TagString: Untagged
@@ -149,22 +148,6 @@ Transform:
   - {fileID: 436796}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &11139068
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173160}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 6fbc99101e04440c0a3ad089cf6adaa0, type: 3}
-  m_Animations:
-  - {fileID: 7400000, guid: 6fbc99101e04440c0a3ad089cf6adaa0, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &190204
 GameObject:
   m_ObjectHideFlags: 0

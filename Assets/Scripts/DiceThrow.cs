@@ -2,20 +2,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class DiceThrow : MonoBehaviour
 {
-    public Transform playerDice;
-    public Transform computerDice;
+    [SerializeField] private Transform playerDice;
+    [SerializeField] private Transform computerDice;
     private Rigidbody playerRb;
     private Rigidbody computerRb;
 
-    public GameObject shakeToThrowUI;
-    public TMP_Text balanceText;
-    public TMP_InputField betInput;
-    public Button betIncreaseButton;
-    public Button betDecreaseButton;
+    [SerializeField] private GameObject shakeToThrowUI;
+    [SerializeField] private TMP_Text balanceText;
+    [SerializeField] private TMP_InputField betInput;
+    [SerializeField] private Button betIncreaseButton;
+    [SerializeField] private Button betDecreaseButton;
 
     private bool isPlayerThrown = false;
     private bool isComputerThrown = false;
