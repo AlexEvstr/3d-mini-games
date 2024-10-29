@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000010333613716, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1000012391514778, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
       propertyPath: m_Name
       value: FortuneWheel Window
@@ -139,6 +143,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013203004654, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010304458570, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: fbace75c4c26740bfb7e463015cf7a52, type: 3}
     - target: {fileID: 114000011469501268, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
       propertyPath: TurnCost
       value: 300
@@ -198,6 +210,18 @@ PrefabInstance:
     - target: {fileID: 114000012739198686, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012739198686, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012739198686, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012739198686, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224000011413849184, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -296,7 +320,8 @@ PrefabInstance:
       value: -1698
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1000013203004654, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 187e711c2b2a743798d4833b1c4787e3, type: 3}

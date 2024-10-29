@@ -31,7 +31,7 @@ public class FortuneWheelManager : MonoBehaviour
 	private float _finalAngle;					// The final angle is needed to calculate the reward
 	private float _startAngle;    				// The first time start angle equals 0 but the next time it equals the last final angle
 	private float _currentLerpRotationTime;		// Needed for spinning animation
-	private int _currentCoinsAmount = 1000;		// Started coins amount. In your project it should be picked up from CoinsManager or from PlayerPrefs and so on
+	private int _currentCoinsAmount;		// Started coins amount. In your project it should be picked up from CoinsManager or from PlayerPrefs and so on
 	private int _previousCoinsAmount;
 
 	// Here you can set time between two free turns
@@ -67,8 +67,10 @@ public class FortuneWheelManager : MonoBehaviour
 
 	private void Awake ()
 	{
+		Screen.orientation = ScreenOrientation.Portrait;
 		_previousCoinsAmount = _currentCoinsAmount;
 		// Show our current coins amount
+		_currentCoinsAmount = PlayerPrefs.GetInt("TotalMoney", 1000);
 		CurrentCoinsText.text = _currentCoinsAmount.ToString ();
 
 		// Show sector reward value in text object if it's set
@@ -293,6 +295,8 @@ public class FortuneWheelManager : MonoBehaviour
 		_previousCoinsAmount = _currentCoinsAmount;
 
 		CurrentCoinsText.text = _currentCoinsAmount.ToString ();
+
+		PlayerPrefs.SetInt("TotalMoney", _currentCoinsAmount);
 	}
 
 	// Change remaining time to next free turn every 1 second

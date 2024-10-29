@@ -30,12 +30,13 @@ public class DiceThrow : MonoBehaviour
     private float shakeThreshold = 2.0f;
 
     private int balance;
-    private int betAmount = 100;
+    private int betAmount;
     private float balanceUpdateSpeed = 1000f;
 
     void Start()
     {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
+
         playerRb = playerDice.GetComponent<Rigidbody>();
         computerRb = computerDice.GetComponent<Rigidbody>();
 
@@ -48,6 +49,7 @@ public class DiceThrow : MonoBehaviour
 
         balance = PlayerPrefs.GetInt("TotalMoney", 1000);
         UpdateBalanceText();
+        if (balance > 0) betAmount = 100;
 
         betInput.text = betAmount.ToString();
         betInput.onEndEdit.AddListener(OnEndEditBetInput); // Срабатывает при завершении ввода
