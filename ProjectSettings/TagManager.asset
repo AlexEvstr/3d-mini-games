@@ -8,6 +8,7 @@ TagManager:
   - WheelTrigger
   - DiceTrigger
   - ChestTrigger
+  - Floor
   layers:
   - Default
   - TransparentFX
