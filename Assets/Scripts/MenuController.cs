@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
     [SerializeField] private Button _playButton;
+    [SerializeField] private Button _shopButton;
     [SerializeField] private GameObject _slots;
     [SerializeField] private GameObject _slots_anim;
     [SerializeField] private GameObject _wheel;
@@ -16,6 +18,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject _dice_anim;
     [SerializeField] private GameObject _chest;
     [SerializeField] private GameObject _chest_anim;
+    [SerializeField] private TMP_Text _balanceText;
     private SceneTransition sceneTransition;
 
     private void Start()
@@ -24,6 +27,15 @@ public class MenuController : MonoBehaviour
         _playButton.gameObject.SetActive(false);
         _playButton.onClick.AddListener(PlayGame);
         sceneTransition = GetComponent<SceneTransition>();
+        _shopButton.onClick.AddListener(OpenShop);
+
+        int balance = PlayerPrefs.GetInt("TotalMoney", 1000);
+        _balanceText.text = balance.ToString();
+    }
+
+    private void OpenShop()
+    {
+        sceneTransition.LoadSceneWithFade("ShopScene");
     }
 
     public void ShowPlaySlots()

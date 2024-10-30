@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Button _homeBtn;
+    private SceneTransition _sceneTransition;
+
+    private void Start()
     {
-        
+        _sceneTransition = GetComponent<SceneTransition>();
+        _homeBtn.onClick.AddListener(BackToHome);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void BackToHome()
     {
-        
+        _sceneTransition.LoadSceneWithFade("MainMenu");
     }
 }

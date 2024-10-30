@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JoystickPlayerController : MonoBehaviour
 {
@@ -9,15 +10,26 @@ public class JoystickPlayerController : MonoBehaviour
     public float rotationSpeed = 10f; // Скорость вращения персонажа
     public GameObject startMenu; // UI-объект меню
     public GameObject joystickUI; // UI-объект джойстика
+    public GameObject _shopBtn; // UI-объект джойстика
+    public GameObject _balance; // UI-объект джойстика
+    public Button _homeBtn; // UI-объект джойстика
+    private SceneTransition sceneTransition;
 
     private bool isInMenu = true; // Флаг для меню
     private bool isGrounded = true; // Флаг, указывающий на касание земли
 
     void Start()
     {
+        sceneTransition = GetComponent<SceneTransition>();
         // Начинаем с анимации танца и показываем меню
         animator.SetBool("isDancing", true);
         joystickUI.SetActive(false); // Джойстик выключен в начале
+        _homeBtn.onClick.AddListener(ReloadMenuScene);
+    }
+
+    private void ReloadMenuScene()
+    {
+        sceneTransition.LoadSceneWithFade("MainMenu");
     }
 
     void Update()
@@ -56,6 +68,9 @@ public class JoystickPlayerController : MonoBehaviour
         // Активируем джойстик и убираем меню
         joystickUI.SetActive(true);
         startMenu.SetActive(false);
+        _shopBtn.SetActive(false);
+        _balance.SetActive(false);
+        _homeBtn.gameObject.SetActive(true);
     }
 
     void FixedUpdate()
