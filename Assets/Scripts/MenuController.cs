@@ -19,6 +19,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject _chest;
     [SerializeField] private GameObject _chest_anim;
     [SerializeField] private TMP_Text _balanceText;
+    [SerializeField] private Button _plus100Balance;
     private SceneTransition sceneTransition;
 
     private void Start()
@@ -31,6 +32,37 @@ public class MenuController : MonoBehaviour
 
         int balance = PlayerPrefs.GetInt("TotalMoney", 1000);
         _balanceText.text = balance.ToString();
+
+        if (balance <= 0)
+        {
+            _plus100Balance.gameObject.SetActive(true);
+            _plus100Balance.onClick.AddListener(IncreaseBalance);
+        }
+    }
+
+    public void IncreaseBalance()
+    {
+        StartCoroutine(IncreaseBalanceCoroutine());
+    }
+
+    private IEnumerator IncreaseBalanceCoroutine()
+    {
+        int currentBalance = 0; // Начальное значение
+        _plus100Balance.gameObject.SetActive(true); // Включаем объект, если нужно показать что-то визуально на старте
+
+        // Плавное увеличение баланса
+        while (currentBalance < 100)
+        {
+            currentBalance = Mathf.Min(currentBalance + Mathf.CeilToInt(100 * Time.deltaTime), 100);
+            _balanceText.text = currentBalance.ToString();
+            yield return null;
+        }
+
+        // Сохраняем целевое значение в PlayerPrefs
+        PlayerPrefs.SetInt("TotalMoney", 100);
+
+        // Отключаем объект, если нужно
+        _plus100Balance.gameObject.SetActive(false);
     }
 
     private void OpenShop()
