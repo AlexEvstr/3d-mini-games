@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ChestGame.unity
     guid: b6628cec8675540879b399552ffa7a10
+  - enabled: 1
+    path: Assets/Scenes/ShopScene.unity
+    guid: b7f1a419951b24245943d312878d24c2
   m_configObjects: {}
