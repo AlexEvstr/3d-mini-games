@@ -4,6 +4,8 @@ using System.Collections;
 using System;
 using System.Linq;
 using UnityEngine.Events;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,7 +15,8 @@ public class FortuneWheelManager : MonoBehaviour
 {
 	[Header("Game Objects for some elements")]
 	public Button PaidTurnButton; 				// This button is showed when you can turn the wheel for coins
-	public Button FreeTurnButton;				// This button is showed when you can turn the wheel for free
+	public Button FreeTurnButton;
+	public Button closeBtn;
 	public GameObject Circle; 					// Rotatable GameObject on scene with reward objects
 	public Text DeltaCoinsText; 				// Pop-up text with wasted or rewarded coins amount
 	public Text CurrentCoinsText; 				// Pop-up text with wasted or rewarded coins amount
@@ -26,7 +29,8 @@ public class FortuneWheelManager : MonoBehaviour
 	private bool _isStarted;					// Flag that the wheel is spinning
 
 	[Header("Params for each sector")]
-	public FortuneWheelSector[] Sectors;		// All sectors objects
+	public FortuneWheelSector[] Sectors;
+	private SceneTransition sceneTransition;
 
 	private float _finalAngle;					// The final angle is needed to calculate the reward
 	private float _startAngle;    				// The first time start angle equals 0 but the next time it equals the last final angle
@@ -67,6 +71,7 @@ public class FortuneWheelManager : MonoBehaviour
 
 	private void Awake ()
 	{
+		sceneTransition = GetComponent<SceneTransition>();
 		Screen.orientation = ScreenOrientation.Portrait;
 		_previousCoinsAmount = _currentCoinsAmount;
 		// Show our current coins amount
@@ -90,6 +95,14 @@ public class FortuneWheelManager : MonoBehaviour
 		} else {
 			NextTurnTimerWrapper.gameObject.SetActive (false);
 		}
+
+		closeBtn.onClick.AddListener(CloseWheelBtn);
+	}
+
+	private void CloseWheelBtn()
+    {
+		sceneTransition.LoadSceneWithFade("MainMenu");
+
 	}
 
 	private void TurnWheelForFree() { TurnWheel (true);	}

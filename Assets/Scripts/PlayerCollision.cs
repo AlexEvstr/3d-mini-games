@@ -11,19 +11,23 @@ public class PlayerCollision : MonoBehaviour
         if (other.gameObject.CompareTag("SlotsTrigger"))
         {
             _menuController.ShowPlaySlots();
+            PlayerPrefs.SetString("SceneNameToPlay", "SlotsGame");
         }
         else if (other.gameObject.CompareTag("WheelTrigger"))
         {
             _menuController.ShowPlayWheel();
+            PlayerPrefs.SetString("SceneNameToPlay", "FortuneWheelGame");
         }
 
         else if (other.gameObject.CompareTag("DiceTrigger"))
         {
             _menuController.ShowPlayDice();
+            PlayerPrefs.SetString("SceneNameToPlay", "DiceGame");
         }
         else if (other.gameObject.CompareTag("ChestTrigger"))
         {
             _menuController.ShowPlayChest();
+            PlayerPrefs.SetString("SceneNameToPlay", "ChestGame");
         }
     }
 

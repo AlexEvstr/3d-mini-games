@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/SlotsGame.unity
+    guid: c4e708ddbe57a40b0beaefde67d86d33
+  - enabled: 1
+    path: Assets/Scenes/FortuneWheelGame.unity
+    guid: 3564fdfbad0934a5691cb0fd5b7e86db
+  - enabled: 1
     path: Assets/Scenes/DiceGame.unity
     guid: 553631cc3d7c34cecb7f9d35640ac9e5
+  - enabled: 1
+    path: Assets/Scenes/ChestGame.unity
+    guid: b6628cec8675540879b399552ffa7a10
   m_configObjects: {}

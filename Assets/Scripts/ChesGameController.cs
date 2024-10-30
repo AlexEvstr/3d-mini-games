@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class ChesGameController : MonoBehaviour
 {
@@ -20,18 +21,25 @@ public class ChesGameController : MonoBehaviour
     [SerializeField] private Button betIncreaseButton;
     [SerializeField] private Button betDecreaseButton;
     [SerializeField] private Button okButton;
+    [SerializeField] private Button _closeBtn;
     [SerializeField] private Button[] chooseButton;
     [SerializeField] private GameObject _cube;
     private Rigidbody lockRigidbody;
+    private SceneTransition sceneTransition;
 
     private int balance;
     private int betAmount;
     private float balanceUpdateSpeed = 1000f;
     private int randomLock;
 
-    private void Start()
+    private void OnEnable()
     {
         Screen.orientation = ScreenOrientation.Portrait;
+    }
+
+    private void Start()
+    {
+        sceneTransition = GetComponent<SceneTransition>();
         balance = PlayerPrefs.GetInt("TotalMoney", 1000);
         UpdateBalanceText();
         if (balance > 0) betAmount = 100;
@@ -51,6 +59,13 @@ public class ChesGameController : MonoBehaviour
         ShowBet();
 
         lockRigidbody = _lockAnimated.GetComponent<Rigidbody>();
+
+        _closeBtn.onClick.AddListener(CloseBtn);
+    }
+
+    private void CloseBtn()
+    {
+        sceneTransition.LoadSceneWithFade("MainMenu");
     }
 
     void UpdateBalanceText()

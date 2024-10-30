@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
@@ -14,10 +16,14 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject _dice_anim;
     [SerializeField] private GameObject _chest;
     [SerializeField] private GameObject _chest_anim;
+    private SceneTransition sceneTransition;
 
     private void Start()
     {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         _playButton.gameObject.SetActive(false);
+        _playButton.onClick.AddListener(PlayGame);
+        sceneTransition = GetComponent<SceneTransition>();
     }
 
     public void ShowPlaySlots()
@@ -74,5 +80,11 @@ public class MenuController : MonoBehaviour
         _playButton.gameObject.SetActive(false);
         _chest_anim.SetActive(false);
         _chest.SetActive(true);
+    }
+
+    private void PlayGame()
+    {
+        string savedSceneName = PlayerPrefs.GetString("SceneNameToPlay", "");
+        sceneTransition.LoadSceneWithFade(savedSceneName);
     }
 }

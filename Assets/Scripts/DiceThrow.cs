@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DiceThrow : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class DiceThrow : MonoBehaviour
     [SerializeField] private TMP_InputField betInput;
     [SerializeField] private Button betIncreaseButton;
     [SerializeField] private Button betDecreaseButton;
+    [SerializeField] private Button closeButton;
+    private SceneTransition sceneTransition;
 
     private bool isPlayerThrown = false;
     private bool isComputerThrown = false;
@@ -34,6 +37,7 @@ public class DiceThrow : MonoBehaviour
 
     void Start()
     {
+        sceneTransition = GetComponent<SceneTransition>();
         Screen.orientation = ScreenOrientation.LandscapeLeft;
 
         playerRb = playerDice.GetComponent<Rigidbody>();
@@ -55,6 +59,13 @@ public class DiceThrow : MonoBehaviour
 
         betIncreaseButton.onClick.AddListener(() => ChangeBetAmount(10));
         betDecreaseButton.onClick.AddListener(() => ChangeBetAmount(-10));
+
+        closeButton.onClick.AddListener(CloseBtn);
+    }
+
+    private void CloseBtn()
+    {
+        sceneTransition.LoadSceneWithFade("MainMenu");
     }
 
     void Update()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SlotMachine : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private Slot[] slots;
     [SerializeField] private Combinations[] combinations;
     [SerializeField] private Button _spinBtn;
+    [SerializeField] private Button _closeBtn;
+    private SceneTransition sceneTransition;
     private int balance;
     private int betAmount;
     private float balanceUpdateSpeed = 1000f;
@@ -22,6 +25,7 @@ public class SlotMachine : MonoBehaviour
 
     private void Start()
     {
+        sceneTransition = GetComponent<SceneTransition>();
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         _spinBtn.onClick.AddListener(Spin);
         balance = PlayerPrefs.GetInt("TotalMoney", 1000);
@@ -35,6 +39,13 @@ public class SlotMachine : MonoBehaviour
 
         betIncreaseButton.onClick.AddListener(() => ChangeBetAmount(10));
         betDecreaseButton.onClick.AddListener(() => ChangeBetAmount(-10));
+
+        _closeBtn.onClick.AddListener(CloseBtn);
+    }
+
+    private void CloseBtn()
+    {
+        sceneTransition.LoadSceneWithFade("MainMenu");
     }
 
     void UpdateBalanceText()
