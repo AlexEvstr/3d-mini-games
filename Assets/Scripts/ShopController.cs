@@ -10,6 +10,7 @@ public class ShopController : MonoBehaviour
 
     private void Start()
     {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         _sceneTransition = GetComponent<SceneTransition>();
         _homeBtn.onClick.AddListener(BackToHome);
     }
