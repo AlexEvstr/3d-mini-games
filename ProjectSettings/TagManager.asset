@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SlotsTrigger
+  - WheelTrigger
+  - DiceTrigger
+  - ChestTrigger
   layers:
   - Default
   - TransparentFX
