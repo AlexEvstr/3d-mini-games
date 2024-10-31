@@ -36,7 +36,6 @@ public class Slot : MonoBehaviour
             yield return new WaitForSeconds(sm.timeInterval);
             CheckPosition();
         }
-
         CheckResults();
         yield return null;
     }

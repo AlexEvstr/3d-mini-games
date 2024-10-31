@@ -26,6 +26,7 @@ public class ChesGameController : MonoBehaviour
     [SerializeField] private GameObject _cube;
     private Rigidbody lockRigidbody;
     private SceneTransition sceneTransition;
+    private GameAudio _gameAudio;
 
     private int balance;
     private int betAmount;
@@ -39,6 +40,7 @@ public class ChesGameController : MonoBehaviour
 
     private void Start()
     {
+        _gameAudio = GetComponent<GameAudio>();
         sceneTransition = GetComponent<SceneTransition>();
         balance = PlayerPrefs.GetInt("TotalMoney", 1000);
         UpdateBalanceText();
@@ -108,6 +110,7 @@ public class ChesGameController : MonoBehaviour
 
     private IEnumerator UnlockChest()
     {
+        _gameAudio.PlayOpenLockSound();
         yield return new WaitForSeconds(1.0f);
         _lock.SetActive(false);
         _lockAnimated.SetActive(true);
@@ -116,8 +119,12 @@ public class ChesGameController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _chest.SetActive(false);
         _chestAnimated.SetActive(true);
+        
         StartCoroutine(UpdateBalance(betAmount));
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.5f);
+        _gameAudio.PlayCashSound();
+        yield return new WaitForSeconds(1.5f);
+
         _lock.SetActive(true);
         //Destroy(_chestAnimated);
         _lockAnimated.SetActive(false);
@@ -135,6 +142,8 @@ public class ChesGameController : MonoBehaviour
 
     private IEnumerator ShowFalseLock()
     {
+        yield return new WaitForSeconds(0.5f);
+        _gameAudio.PlayFailLockSound();
         _lock.SetActive(false);
         _lockFalse.SetActive(true);
         StartCoroutine(UpdateBalance(-betAmount));

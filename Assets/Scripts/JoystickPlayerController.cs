@@ -10,10 +10,10 @@ public class JoystickPlayerController : MonoBehaviour
     public float rotationSpeed = 10f; // Скорость вращения персонажа
     public GameObject startMenu; // UI-объект меню
     public GameObject joystickUI; // UI-объект джойстика
-    public GameObject _shopBtn; // UI-объект джойстика
-    public GameObject _balance; // UI-объект джойстика
     public Button _homeBtn; // UI-объект джойстика
     private SceneTransition sceneTransition;
+    [SerializeField] private GameObject _walkSound;
+    [SerializeField] private GameObject _jumpSound;
 
     private bool isInMenu = true; // Флаг для меню
     private bool isGrounded = true; // Флаг, указывающий на касание земли
@@ -39,11 +39,13 @@ public class JoystickPlayerController : MonoBehaviour
             // Проверяем, касается ли персонаж земли
             if (isGrounded)
             {
-                animator.SetBool("isJumping", false); // Если на земле, выключаем анимацию прыжка
+                animator.SetBool("isJumping", false);
+                _jumpSound.SetActive(false);
             }
             else
             {
-                animator.SetBool("isJumping", true); // Если не на земле, включаем анимацию прыжка
+                animator.SetBool("isJumping", true);
+                _jumpSound.SetActive(true);
             }
         }
     }
@@ -68,8 +70,6 @@ public class JoystickPlayerController : MonoBehaviour
         // Активируем джойстик и убираем меню
         joystickUI.SetActive(true);
         startMenu.SetActive(false);
-        _shopBtn.SetActive(false);
-        _balance.SetActive(false);
         _homeBtn.gameObject.SetActive(true);
     }
 
@@ -85,7 +85,7 @@ public class JoystickPlayerController : MonoBehaviour
         {
             // Включаем анимацию ходьбы
             animator.SetBool("isWalking", true);
-
+            _walkSound.SetActive(true);
             // Перемещаем персонажа
             Vector3 move = direction.normalized * speed * Time.fixedDeltaTime;
             rb.MovePosition(rb.position + move);
@@ -98,6 +98,7 @@ public class JoystickPlayerController : MonoBehaviour
         {
             // Останавливаем анимацию ходьбы (включаем Idle)
             animator.SetBool("isWalking", false);
+            _walkSound.SetActive(false);
         }
     }
 

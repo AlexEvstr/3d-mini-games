@@ -19,6 +19,7 @@ public class ShopManager : MonoBehaviour
     private int displayedBalance;
     private int selectedGlassesIndex = -1;
     private float balanceUpdateSpeed = 500f; // Скорость уменьшения баланса
+    private GameAudio _gameAudio;
 
     private void Start()
     {
@@ -28,6 +29,8 @@ public class ShopManager : MonoBehaviour
 
         notEnoughMoneyText.gameObject.SetActive(false);
         LoadShopState();
+
+        _gameAudio = GetComponent<GameAudio>();
     }
 
     private void UpdateBalanceText()
@@ -59,6 +62,7 @@ public class ShopManager : MonoBehaviour
         if (PlayerPrefs.GetInt("GlassesBought_" + index, 0) == 1)
         {
             SetSelectedGlasses(index);
+            _gameAudio.PlaySpinSound();
         }
         else
         {
@@ -67,7 +71,7 @@ public class ShopManager : MonoBehaviour
                 int cost = glassesCosts[index];
                 balance -= cost;
                 PlayerPrefs.SetInt("TotalMoney", balance);
-
+                _gameAudio.PlayCashSound();
                 // Запускаем плавное уменьшение отображаемого баланса
                 StartCoroutine(DecreaseBalanceSmoothly(cost));
 

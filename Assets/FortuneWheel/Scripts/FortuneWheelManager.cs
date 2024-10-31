@@ -21,7 +21,9 @@ public class FortuneWheelManager : MonoBehaviour
 	public Text DeltaCoinsText; 				// Pop-up text with wasted or rewarded coins amount
 	public Text CurrentCoinsText; 				// Pop-up text with wasted or rewarded coins amount
 	public GameObject NextTurnTimerWrapper;
-	public Text NextFreeTurnTimerText;			// Text element that contains remaining time to next free turn
+	public Text NextFreeTurnTimerText;
+	public GameObject WheelSound;
+	public GameAudio _gameAudio;
 
 	[Header("How much currency one paid turn costs")]
 	public int TurnCost = 300;					// How much coins user waste when turn whe wheel
@@ -150,6 +152,7 @@ public class FortuneWheelManager : MonoBehaviour
 
 		// Stop the wheel
 		_isStarted = true;
+		WheelSound.SetActive(true);
 
 		_previousCoinsAmount = _currentCoinsAmount;
 
@@ -252,6 +255,7 @@ public class FortuneWheelManager : MonoBehaviour
 		if (_currentLerpRotationTime > maxLerpRotationTime || Circle.transform.eulerAngles.z == _finalAngle) {
 			_currentLerpRotationTime = maxLerpRotationTime;
 			_isStarted = false;
+			WheelSound.SetActive(false);
 			_startAngle = _finalAngle % 360;
 
 			//GiveAwardByAngle ();
@@ -283,6 +287,7 @@ public class FortuneWheelManager : MonoBehaviour
 
 		DeltaCoinsText.gameObject.SetActive (true);
 		StartCoroutine (UpdateCoinsAmount ());
+		_gameAudio.PlayCashSound();
 	}
 
 	// Hide coins delta text after animation
@@ -304,7 +309,6 @@ public class FortuneWheelManager : MonoBehaviour
 
 			yield return new WaitForEndOfFrame ();
 		}
-
 		_previousCoinsAmount = _currentCoinsAmount;
 
 		CurrentCoinsText.text = _currentCoinsAmount.ToString ();

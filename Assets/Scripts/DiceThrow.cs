@@ -12,12 +12,15 @@ public class DiceThrow : MonoBehaviour
     private Rigidbody computerRb;
 
     [SerializeField] private GameObject shakeToThrowUI;
+    [SerializeField] private GameObject inputObject;
     [SerializeField] private TMP_Text balanceText;
     [SerializeField] private TMP_InputField betInput;
     [SerializeField] private Button betIncreaseButton;
     [SerializeField] private Button betDecreaseButton;
     [SerializeField] private Button closeButton;
+    [SerializeField] private GameAudio _gameAudio;
     private SceneTransition sceneTransition;
+
 
     private bool isPlayerThrown = false;
     private bool isComputerThrown = false;
@@ -76,6 +79,7 @@ public class DiceThrow : MonoBehaviour
             ThrowDice(playerRb);
             isPlayerThrown = true;
             shakeToThrowUI.SetActive(false);
+            inputObject.SetActive(false);
         }
 
         if (isPlayerThrown && playerRb.IsSleeping() && playerResult == 0)
@@ -110,6 +114,8 @@ public class DiceThrow : MonoBehaviour
 
         rb.AddForce(randomDirection * Random.Range(4f, 8f), ForceMode.Impulse);
         rb.AddTorque(Random.insideUnitSphere * Random.Range(8f, 15f), ForceMode.Impulse);
+
+        _gameAudio.PlayDiceSound();
     }
 
     int DetermineTopFace(Transform dice)
@@ -138,12 +144,13 @@ public class DiceThrow : MonoBehaviour
         {
             Debug.Log("Игрок выиграл!");
             StartCoroutine(UpdateBalance(betAmount));
+            _gameAudio.PlayWinSound();
         }
         else if (playerResult < computerResult)
         {
             Debug.Log("Компьютер выиграл!");
             StartCoroutine(UpdateBalance(-betAmount));
-            
+            _gameAudio.PlayLoseSound();
         }
         else
         {
@@ -195,6 +202,7 @@ public class DiceThrow : MonoBehaviour
         computerResult = 0;
 
         shakeToThrowUI.SetActive(true);
+        inputObject.SetActive(true);
     }
 
     void ChangeBetAmount(int change)

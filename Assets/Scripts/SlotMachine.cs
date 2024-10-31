@@ -15,6 +15,8 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private Combinations[] combinations;
     [SerializeField] private Button _spinBtn;
     [SerializeField] private Button _closeBtn;
+    [SerializeField] private GameObject _slotsSound;
+    [SerializeField] private GameAudio _gameAudio;
     private SceneTransition sceneTransition;
     private int balance;
     private int betAmount;
@@ -97,6 +99,7 @@ public class SlotMachine : MonoBehaviour
             yield return null;
             DisableSPinBtn();
         }
+        _gameAudio.PlayWinSound();
 
         EnableSpinBtn();
 
@@ -124,6 +127,7 @@ public class SlotMachine : MonoBehaviour
         if (!isSpin && balance - betAmount >= 0)
         {
             ChangeMoney(-betAmount);
+            _slotsSound.SetActive(true);
             isSpin = true;
             foreach (Slot i in slots)
             {
@@ -149,6 +153,7 @@ public class SlotMachine : MonoBehaviour
         {
             stoppedSlots = 3;
             CheckResults();
+            _slotsSound.SetActive(false);
         }
     }
 
