@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
@@ -47,10 +44,9 @@ public class MenuController : MonoBehaviour
 
     private IEnumerator IncreaseBalanceCoroutine()
     {
-        int currentBalance = 0; // Начальное значение
-        _plus100Balance.gameObject.SetActive(true); // Включаем объект, если нужно показать что-то визуально на старте
+        int currentBalance = 0;
+        _plus100Balance.gameObject.SetActive(true);
 
-        // Плавное увеличение баланса
         while (currentBalance < 100)
         {
             currentBalance = Mathf.Min(currentBalance + Mathf.CeilToInt(100 * Time.deltaTime), 100);
@@ -58,10 +54,8 @@ public class MenuController : MonoBehaviour
             yield return null;
         }
 
-        // Сохраняем целевое значение в PlayerPrefs
         PlayerPrefs.SetInt("TotalMoney", 100);
 
-        // Отключаем объект, если нужно
         _plus100Balance.gameObject.SetActive(false);
     }
 

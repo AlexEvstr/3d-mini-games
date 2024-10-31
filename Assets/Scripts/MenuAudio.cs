@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +7,7 @@ public class MenuAudio : MonoBehaviour
     [SerializeField] private Button _audioOff;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _clickSound;
+    [SerializeField] private AudioClip _cashSound;
 
     private void Start()
     {
@@ -45,5 +44,10 @@ public class MenuAudio : MonoBehaviour
     public void PlayClickSound()
     {
         _audioSource.PlayOneShot(_clickSound);
+    }
+
+    public void PlayCashSound()
+    {
+        _audioSource.PlayOneShot(_cashSound);
     }
 }

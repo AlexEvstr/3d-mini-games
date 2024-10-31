@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum SlotValue
@@ -90,4 +89,3 @@ public class Slot : MonoBehaviour
         sm.WaitResults();
     }
 }
-

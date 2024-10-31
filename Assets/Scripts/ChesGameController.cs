@@ -2,8 +2,6 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
-using Unity.VisualScripting;
-using UnityEngine.SceneManagement;
 
 public class ChesGameController : MonoBehaviour
 {
@@ -47,7 +45,7 @@ public class ChesGameController : MonoBehaviour
         if (balance > 0) betAmount = 100;
 
         betInput.text = betAmount.ToString();
-        betInput.onEndEdit.AddListener(OnEndEditBetInput); // Срабатывает при завершении ввода
+        betInput.onEndEdit.AddListener(OnEndEditBetInput);
 
         betIncreaseButton.onClick.AddListener(() => ChangeBetAmount(10));
         betDecreaseButton.onClick.AddListener(() => ChangeBetAmount(-10));
@@ -82,14 +80,13 @@ public class ChesGameController : MonoBehaviour
         {
             if (int.TryParse(input, out result))
             {
-                // Ограничиваем ставку, если она выходит за пределы
                 betAmount = Mathf.Clamp(result, 10, balance);
             }
             else
             {
-                betAmount = 10; // Если введено нечисловое значение, ставим минимум 10
+                betAmount = 10;
             }
-            betInput.text = betAmount.ToString(); // Обновляем значение в поле
+            betInput.text = betAmount.ToString();
         }
         else
         {
@@ -126,7 +123,6 @@ public class ChesGameController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         _lock.SetActive(true);
-        //Destroy(_chestAnimated);
         _lockAnimated.SetActive(false);
 
         lockRigidbody.useGravity = false;
@@ -134,7 +130,6 @@ public class ChesGameController : MonoBehaviour
         lockRigidbody.angularVelocity = Vector3.zero;
         _lockAnimated.transform.position = new Vector3(0.06f, 0.5f, -2.246284f);
 
-        //_chestAnimated = Instantiate(_chestAnimated, _cube.transform);
         _chestAnimated.SetActive(false);
         _chest.SetActive(true);
         ShowBet();
@@ -196,7 +191,7 @@ public class ChesGameController : MonoBehaviour
         if (betAmount > balance)
         {
             betAmount = balance;
-            betInput.text = betAmount.ToString(); // Обновляем текстовое значение в InputField
+            betInput.text = betAmount.ToString();
         }
 
         if (balance <= 0)

@@ -6,15 +6,14 @@ public class BackgroundMusic : MonoBehaviour
 
     private void Awake()
     {
-        // Проверяем, есть ли уже экземпляр
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  // Сохраняем объект на протяжении всех сцен
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);  // Уничтожаем дубликаты
+            Destroy(gameObject);
         }
     }
 }

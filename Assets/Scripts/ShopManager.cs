@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
@@ -18,7 +17,7 @@ public class ShopManager : MonoBehaviour
     private int balance;
     private int displayedBalance;
     private int selectedGlassesIndex = -1;
-    private float balanceUpdateSpeed = 500f; // Скорость уменьшения баланса
+    private float balanceUpdateSpeed = 500f;
     private GameAudio _gameAudio;
 
     private void Start()
@@ -72,7 +71,6 @@ public class ShopManager : MonoBehaviour
                 balance -= cost;
                 PlayerPrefs.SetInt("TotalMoney", balance);
                 _gameAudio.PlayCashSound();
-                // Запускаем плавное уменьшение отображаемого баланса
                 StartCoroutine(DecreaseBalanceSmoothly(cost));
 
                 PlayerPrefs.SetInt("GlassesBought_" + index, 1);
@@ -90,7 +88,7 @@ public class ShopManager : MonoBehaviour
         while (displayedBalance > balance)
         {
             displayedBalance -= Mathf.CeilToInt(balanceUpdateSpeed * Time.deltaTime);
-            displayedBalance = Mathf.Max(displayedBalance, balance); // Останавливаемся на целевом балансе
+            displayedBalance = Mathf.Max(displayedBalance, balance);
             UpdateBalanceText();
             yield return null;
         }

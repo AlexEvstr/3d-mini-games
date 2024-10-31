@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class DiceThrow : MonoBehaviour
 {
@@ -58,7 +57,7 @@ public class DiceThrow : MonoBehaviour
         if (balance > 0) betAmount = 100;
 
         betInput.text = betAmount.ToString();
-        betInput.onEndEdit.AddListener(OnEndEditBetInput); // Срабатывает при завершении ввода
+        betInput.onEndEdit.AddListener(OnEndEditBetInput);
 
         betIncreaseButton.onClick.AddListener(() => ChangeBetAmount(10));
         betDecreaseButton.onClick.AddListener(() => ChangeBetAmount(-10));
@@ -73,7 +72,6 @@ public class DiceThrow : MonoBehaviour
 
     void Update()
     {
-        // Проверка на тряску устройства для подбрасывания кубика игрока
         if (!isPlayerThrown && Mathf.Abs(Input.gyro.userAcceleration.magnitude) > shakeThreshold && betAmount > 0)
         {
             ThrowDice(playerRb);
@@ -172,7 +170,7 @@ public class DiceThrow : MonoBehaviour
         if (betAmount > balance)
         {
             betAmount = balance;
-            betInput.text = betAmount.ToString(); // Обновляем текстовое значение в InputField
+            betInput.text = betAmount.ToString();
         }
 
         if (balance <= 0)
@@ -222,14 +220,13 @@ public class DiceThrow : MonoBehaviour
         {
             if (int.TryParse(input, out result))
             {
-                // Ограничиваем ставку, если она выходит за пределы
                 betAmount = Mathf.Clamp(result, 10, balance);
             }
             else
             {
-                betAmount = 10; // Если введено нечисловое значение, ставим минимум 10
+                betAmount = 10;
             }
-            betInput.text = betAmount.ToString(); // Обновляем значение в поле
+            betInput.text = betAmount.ToString();
         }
         else
         {

@@ -5,15 +5,13 @@ using System.Collections;
 
 public class SceneTransition : MonoBehaviour
 {
-    [SerializeField] private Image fadeImage; // Ссылка на черный Image для затемнения
-    [SerializeField] private float fadeDuration = 1f; // Длительность затемнения
+    [SerializeField] private Image fadeImage;
+    [SerializeField] private float fadeDuration = 1f;
 
     private void Start()
     {
-        // Убедимся, что изображение изначально черное
         fadeImage.color = new Color(0, 0, 0, 1);
 
-        // Запускаем появление из черного в прозрачный при старте сцены
         StartCoroutine(FadeOut());
     }
 
@@ -24,10 +22,7 @@ public class SceneTransition : MonoBehaviour
 
     private IEnumerator FadeAndLoadScene(string sceneName)
     {
-        // Затемнение перед загрузкой
         yield return StartCoroutine(FadeIn());
-
-        // Загрузка сцены
         SceneManager.LoadScene(sceneName);
     }
 
@@ -44,7 +39,6 @@ public class SceneTransition : MonoBehaviour
             yield return null;
         }
 
-        // Убедимся, что изображение стало полностью черным
         color.a = 1;
         fadeImage.color = color;
     }
@@ -62,7 +56,6 @@ public class SceneTransition : MonoBehaviour
             yield return null;
         }
 
-        // Убедимся, что изображение стало полностью прозрачным
         color.a = 0;
         fadeImage.color = color;
     }

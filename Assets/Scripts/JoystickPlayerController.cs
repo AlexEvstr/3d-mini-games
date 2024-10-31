@@ -3,27 +3,26 @@ using UnityEngine.UI;
 
 public class JoystickPlayerController : MonoBehaviour
 {
-    private float speed = 5f; // Скорость передвижения
-    public FixedJoystick joystick; // Ссылка на Fixed Joystick
-    public Rigidbody rb; // Ссылка на Rigidbody
-    public Animator animator; // Ссылка на компонент Animator
-    public float rotationSpeed = 10f; // Скорость вращения персонажа
-    public GameObject startMenu; // UI-объект меню
-    public GameObject joystickUI; // UI-объект джойстика
-    public Button _homeBtn; // UI-объект джойстика
+    private float speed = 5f;
+    public FixedJoystick joystick;
+    public Rigidbody rb;
+    public Animator animator;
+    public float rotationSpeed = 10f;
+    public GameObject startMenu;
+    public GameObject joystickUI;
+    public Button _homeBtn;
     private SceneTransition sceneTransition;
     [SerializeField] private GameObject _walkSound;
     [SerializeField] private GameObject _jumpSound;
 
-    private bool isInMenu = true; // Флаг для меню
-    private bool isGrounded = true; // Флаг, указывающий на касание земли
+    private bool isInMenu = true;
+    private bool isGrounded = true;
 
     void Start()
     {
         sceneTransition = GetComponent<SceneTransition>();
-        // Начинаем с анимации танца и показываем меню
         animator.SetBool("isDancing", true);
-        joystickUI.SetActive(false); // Джойстик выключен в начале
+        joystickUI.SetActive(false);
         _homeBtn.onClick.AddListener(ReloadMenuScene);
     }
 
@@ -36,7 +35,6 @@ public class JoystickPlayerController : MonoBehaviour
     {
         if (!isInMenu)
         {
-            // Проверяем, касается ли персонаж земли
             if (isGrounded)
             {
                 animator.SetBool("isJumping", false);
@@ -53,21 +51,18 @@ public class JoystickPlayerController : MonoBehaviour
     public void SetGroundedState(bool grounded)
     {
         isGrounded = grounded;
-        animator.SetBool("isJumping", !grounded); // Устанавливаем анимацию прыжка
+        animator.SetBool("isJumping", !grounded);
     }
 
 
     public void StartGame()
     {
-        // Этот метод вызывается при нажатии кнопки "Start" из меню
         isInMenu = false;
-        animator.SetBool("isDancing", false); // Останавливаем анимацию танца
-        animator.SetBool("isWalking", false); // Переход в idle
+        animator.SetBool("isDancing", false);
+        animator.SetBool("isWalking", false);
 
-        // Поворачиваем персонажа на 180 градусов по оси Y
         transform.Rotate(0, 180, 0);
 
-        // Активируем джойстик и убираем меню
         joystickUI.SetActive(true);
         startMenu.SetActive(false);
         _homeBtn.gameObject.SetActive(true);
@@ -75,28 +70,22 @@ public class JoystickPlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isInMenu) return; // Не выполнять движение, если персонаж в меню
+        if (isInMenu) return;
 
-        // Получаем направление на основе ввода джойстика
         Vector3 direction = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
 
-        // Если джойстик используется (есть движение)
         if (direction.magnitude >= 0.1f)
         {
-            // Включаем анимацию ходьбы
             animator.SetBool("isWalking", true);
             _walkSound.SetActive(true);
-            // Перемещаем персонажа
             Vector3 move = direction.normalized * speed * Time.fixedDeltaTime;
             rb.MovePosition(rb.position + move);
 
-            // Вращаем персонажа в направлении движения
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
         }
         else
         {
-            // Останавливаем анимацию ходьбы (включаем Idle)
             animator.SetBool("isWalking", false);
             _walkSound.SetActive(false);
         }
@@ -104,7 +93,6 @@ public class JoystickPlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Если персонаж касается объекта с тегом "Floor", он на земле
         if (collision.gameObject.CompareTag("Floor"))
         {
             isGrounded = true;
