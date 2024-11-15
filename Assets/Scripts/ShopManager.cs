@@ -34,7 +34,7 @@ public class ShopManager : MonoBehaviour
 
     private void UpdateBalanceText()
     {
-        balanceText.text = "Balance: " + displayedBalance;
+        balanceText.text = displayedBalance.ToString();
     }
 
     private void LoadShopState()
